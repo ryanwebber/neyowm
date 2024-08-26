@@ -1,0 +1,15 @@
+[package]
+name = "neyowm-term"
+authors.workspace = true
+version.workspace = true
+edition.workspace = true
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+crossbeam-channel = "0.5.13"
+crossterm = { version = "0.28.1", features = ["event-stream"] }
+neyowm = { path = "../neyowm-core" }
+ratatui = "0.28.0"
+tui-textarea = "0.6.1"
+xplaneconnect = { path = "../xplaneconnect-rs" }

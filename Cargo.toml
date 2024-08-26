@@ -1,0 +1,12 @@
+[workspace]
+resolver = "2"
+members = [
+    "neyowm-core",
+    "neyowm-term",
+    "xplaneconnect-rs",
+]
+
+[workspace.package]
+authors = ["Ryan Webber"]
+version = "0.1.0"
+edition = "2021"
