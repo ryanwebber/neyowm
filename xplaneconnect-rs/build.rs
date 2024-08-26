@@ -10,6 +10,6 @@ fn main() {
         .flag("-Wno-unused-but-set-parameter")
         .flag("-Wno-tautological-constant-out-of-range-compare")
         .define("XPLANECONNECT_NO_LOG_ERRORS", "1")
-        .include("include")
+        .include("src/XPlaneConnect")
         .compile("xplaneconnect");
 }
