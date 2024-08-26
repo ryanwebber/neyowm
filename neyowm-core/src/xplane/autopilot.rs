@@ -9,26 +9,22 @@ use xplaneconnect::{SetControlSurface, XPlaneConnection};
 use crate::{server::Bridge, AutopilotMode, ClientBoundMessage, TelemetryUpdate};
 
 pub struct Autopilot {
-    interval: Duration,
     connection: Arc<Mutex<XPlaneConnection>>,
 }
 
 impl Autopilot {
-    pub fn new(interval: Duration, connection: Arc<Mutex<XPlaneConnection>>) -> Self {
-        Self {
-            interval,
-            connection,
-        }
+    pub fn new(connection: Arc<Mutex<XPlaneConnection>>) -> Self {
+        Self { connection }
     }
 
-    pub fn run(self, bridge: Bridge) {
+    pub fn run(self, bridge: Bridge, interval: Duration) {
         let mut state = State {
             mode: AutopilotMode::Off,
-            roll: PidState::new(Pid::new(0.0, 5.0).p(0.05, 1.0).i(0.01, 1.0).to_owned()),
-            pitch: PidState::new(Pid::new(2.0, 5.0).p(0.05, 1.0).i(0.01, 1.0).to_owned()),
+            roll: PidState::new(Pid::new(0.0, 15.0).p(0.1, 15.0).i(0.01, 15.0).to_owned()),
+            pitch: PidState::new(Pid::new(2.0, 15.0).p(0.1, 15.0).i(0.01, 15.0).to_owned()),
         };
 
-        bridge.recv_with_interval(self.interval, |queue, _| {
+        bridge.recv_with_interval(interval, |queue, _| {
             for msg in queue.iter().cloned() {
                 match msg {
                     ClientBoundMessage::Shutdown => break,

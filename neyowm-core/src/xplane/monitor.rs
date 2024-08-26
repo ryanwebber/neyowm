@@ -11,20 +11,16 @@ use crate::{
 };
 
 pub struct Monitor {
-    interval: Duration,
     connection: Arc<Mutex<XPlaneConnection>>,
 }
 
 impl Monitor {
-    pub fn new(interval: Duration, connection: Arc<Mutex<XPlaneConnection>>) -> Self {
-        Self {
-            interval,
-            connection,
-        }
+    pub fn new(connection: Arc<Mutex<XPlaneConnection>>) -> Self {
+        Self { connection }
     }
 
-    pub fn run(self, bridge: Bridge) {
-        bridge.recv_with_interval(self.interval, |_, tx| {
+    pub fn run(self, bridge: Bridge, interval: Duration) {
+        bridge.recv_with_interval(interval, |_, tx| {
             if let Ok(connection) = self.connection.lock() {
                 match connection.read_position() {
                     Ok(_) => {

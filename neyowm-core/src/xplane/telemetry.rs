@@ -11,21 +11,17 @@ use crate::{
 };
 
 pub struct Telemetry {
-    interval: Duration,
     connection: Arc<Mutex<XPlaneConnection>>,
 }
 
 impl Telemetry {
-    pub fn new(interval: Duration, connection: Arc<Mutex<XPlaneConnection>>) -> Self {
-        Self {
-            interval,
-            connection,
-        }
+    pub fn new(connection: Arc<Mutex<XPlaneConnection>>) -> Self {
+        Self { connection }
     }
 
-    pub fn run(self, bridge: Bridge) {
+    pub fn run(self, bridge: Bridge, interval: Duration) {
         let mut ticker = 0;
-        bridge.recv_with_interval(self.interval, |_, tx| {
+        bridge.recv_with_interval(interval, |_, tx| {
             match ticker {
                 0 => {
                     if let Ok(connection) = self.connection.try_lock() {

@@ -96,7 +96,7 @@ impl Bridge {
         self.tx.send(message).expect("Server channel is closed");
     }
 
-    pub fn broadcase(&self, message: ClientBoundMessage) {
+    pub fn broadcast(&self, message: ClientBoundMessage) {
         self.send(ServerBoundMessage::Broadcast(message));
     }
 
