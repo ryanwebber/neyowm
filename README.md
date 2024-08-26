@@ -1,8 +1,10 @@
 # Neyowm
 
-A basic autopilot controller for single-engine aircraft in X-Plane 11, using
+A basic autopilot controller for single-engine aircraft in X-Plane 11 using
 [Nasa's X-Plane Connect Plugin](https://github.com/nasa/XPlaneConnect) to communicate
 with the simulator.
+
+![Screenshot](.github/screenshot.png)
 
 ## Usage
 
